@@ -1,3 +1,10 @@
+/**
+ * Puppeteer Node for n8n Automation
+ * Provides browser automation and scraping capabilities in n8n workflows.
+ * Author: akhi-shxhid
+ * Repo: https://github.com/akhi-shxhid/n8n-automation
+ * Created: 2025-08-15
+ */
 import {
 	type IDataObject,
 	type IExecuteFunctions,
@@ -12,8 +19,8 @@ import { makeResolverFromLegacyOptions, NodeVM } from '@n8n/vm2';
 
 import puppeteer from 'puppeteer-extra';
 import pluginStealth from 'puppeteer-extra-plugin-stealth';
-//@ts-ignore
-import pluginHumanTyping from 'puppeteer-extra-plugin-human-typing'; 
+import pluginHumanTyping = require('puppeteer-extra-plugin-human-typing');
+
 import {
 	type Browser,
 	type Device,
@@ -123,9 +130,9 @@ async function handleOptions(
 	page: Page,
 ): Promise<void> {
 	const options = this.getNodeParameter('options', 0, {}) as IDataObject;
-	const pageCaching = options.pageCaching !== false;
-	const headers: HeaderObject = (options.headers || {}) as HeaderObject;
-
+	const pageCaching = options?.pageCaching !== false;
+	const headers: HeaderObject = (options?.headers || {}) as HeaderObject;
+	
 	const requestHeaders = (headers.parameter || []).reduce((acc, header) => {
 		acc[header.name] = header.value;
 		return acc;
